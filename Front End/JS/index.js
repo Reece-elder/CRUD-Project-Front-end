@@ -14,18 +14,10 @@ const shipNameInput = document.querySelector('.ship-name');
 
 const output = document.querySelector('#logContent');
 
+const deleteModal = document.querySelector('#deleteModal');
+
 function addRecord(){
 
-}
-
-function locateDelete(element){
-    console.log("delete True " + deleteTrue);
-    if (deleteTrue == true){
-        console.log("delete id no. " + element);
-        element.parentNode.removeChild(element);
-    } else {
-        
-    }
 }
 
 function deleteLog(id){
@@ -33,6 +25,7 @@ function deleteLog(id){
     if(deleteTrue == false){
         console.log("Not deleted");
     } else if (deleteTrue == true){
+        $('#deleteModal').modal("toggle");
         console.log("delete id no. " + id);
         fetch("http://localhost:8082/remove/" + id, {
             method: "DELETE"

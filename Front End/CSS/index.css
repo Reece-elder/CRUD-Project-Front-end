@@ -11,6 +11,25 @@ hr{
     background: #00FF41;
 }
 
+.modalFormat{
+    background-color: rgb(19, 17, 18);
+    color: #00FF41;
+    border: 5px solid #00FF41;
+    font-family: 'VT323', monospace;
+    border-radius: 0;
+}
+
+.modal_button{
+    width: 40%;
+    background-color: #00FF41;
+    font-family: 'VT323', monospace;
+    font-size: 200%;
+    color: rgb(19, 17, 18);
+    border: 5px solid #00FF41;
+    margin: 3%;
+
+}
+
 .settings_button{
     width: 80%;
     background-color: #00FF41;
