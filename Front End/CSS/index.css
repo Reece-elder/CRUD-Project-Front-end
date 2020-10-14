@@ -1,6 +1,6 @@
 body {background-color: rgb(19, 17, 18);}
 
-h1, h2, p, button {
+h1, h2, h3, p, button {
     font-family: 'VT323', monospace;
     color: #00FF41;
     text-transform: uppercase;
@@ -19,6 +19,16 @@ hr{
     border-radius: 0;
 }
 
+.modalInner{
+    border: 0;
+    padding-bottom: 0;
+
+}
+
+.bottomBorder{
+    border-bottom: 2, solid, #00FF41;
+}
+
 .modal_button{
     width: 40%;
     background-color: #00FF41;
@@ -28,6 +38,10 @@ hr{
     border: 5px solid #00FF41;
     margin: 3%;
 
+}
+
+.inputInner{
+    background-color: rgb(19, 17, 18);
 }
 
 .settings_button{
@@ -96,12 +110,18 @@ hr{
 
 input[type="text"]
 {
+    padding: 4px;
+    border: 4px solid #00FF41;
     background: transparent;
-    border: none;
     font-family: 'VT323', monospace;
     color: #00FF41;
     text-transform: uppercase;
     font-size: 175%;
-    width: 100%;
+    width: 80%;
 }
+
+input[type=text]:focus {
+    background-color: #00FF41;
+    color: rgb(19, 17, 18);
+  }
 
