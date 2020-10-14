@@ -54,9 +54,6 @@
         <div class="text-center">
           <button type="button" id='deleteButton' class="settings_button mt-5">Delete</button>
         </div>
-        <div class="text-center">
-          <button type="button" id='submitButton' class="settings_button mt-5">submit</button>
-        </div>
       </div>
     </div>
   </div>
@@ -97,6 +94,45 @@
       </div>
     </div>
   </div>
+
+    <!-- Modal -->
+    <div id="updateModal" class="modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+  
+        <!-- Modal content-->
+        <div class="modal-content modalFormat">
+          <div class="modal-header modalInner">
+            <h1 class="modal-title">update entry</h1>
+          </div>
+          <div class="modal-body modalInner">
+            <h2 class="pb-3">enter text in fields below</h2>
+            <form id='updateForm'>
+              <div class="form-group">
+                <input name="shipName" type="text" id="updateShip" placeholder="ship name">
+              </div>
+              <div class="form-group">
+                <input name="captainName" type="text" id="updateCaptain" placeholder="captain name">
+              </div>
+              <div class="form-group">
+                <input name="shipClass" type="text" class="" id="updateClass" placeholder="ship class">
+              </div>
+              <div class="form-group">
+                <input name="origin" type="text" class="" id="updateOrigin" placeholder="origin">
+              </div>
+              <div class="form-group">
+                <input name="cargo" type="text" class="" id="updateCargo" placeholder="cargo weight">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="modal_button" form="updateForm">Submit</button>
+                <button type="button" class="modal_button" data-dismiss="modal">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
 
   
   <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

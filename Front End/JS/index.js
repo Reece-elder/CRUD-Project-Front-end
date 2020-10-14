@@ -1,20 +1,20 @@
 let idNumber = 1;
 let deleteTrue = false;
-var deleteButtonClick = false;
+let updateTrue = false;
 var updateButtonClick = false;
 var newEntryButtonClick = false;
-var submitButtonClick = true;
+var updateId = 0;
+
 
 const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
 const newEntryButton = document.querySelector('#newEntryButton');
-const submitButton = document.querySelector('#submitButton');
 const shipNameInput = document.querySelector('.ship-name');
 const output = document.querySelector('#logContent');
 const createForm = document.querySelector('#createForm');
+const updateForm = document.querySelector('#updateForm');
 
 createForm.addEventListener('submit', function(event) {
-    debugger;
     event.preventDefault();
     console.log("Submit pressed");
     const data = {
@@ -42,8 +42,39 @@ createForm.addEventListener('submit', function(event) {
     }).catch(error => console.log(error));
 });
 
+updateForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log(this.id.value);
+    let id = updateId;
+    const data = {
+        id: this.id.value,
+        shipName: this.shipName.value,
+        captainName: this.captainName.value,
+        shipClass: this.shipClass.value,
+        origin: this.origin.value,
+        cargo: this.cargo.value,
+    }
+    console.log(data);
+
+    fetch("http://localhost:8082/update?id=" + id,{
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type' : "application/json"
+        }
+        
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        renderData();
+        this.reset();
+        console.log(data);
+    }).catch(error => console.log(error));
+});
+
+
+
 function deleteLog(id){
-    console.log("Delete true " + deleteTrue);
     if(deleteTrue == false){
         console.log("Not deleted");
     } else if (deleteTrue == true){
@@ -56,56 +87,38 @@ function deleteLog(id){
             renderData();
         }).catch(error => console.error(error));
     }
-    
+}
+
+function updateLog(id){
+    if(updateTrue == false){
+    } else if (updateTrue == true){
+        updateId = id;
+        $('#updateModal').modal("toggle");
+    }
 }
 
 deleteButton.addEventListener("click", function(){
-    if(deleteButtonClick){
+    if(deleteTrue){
         deleteTrue = false;
-        console.log("delete button toggled off");
-        deleteButtonClick = false;
         deleteButton.classList.remove("button-active");
     } else {
-        console.log("delete button toggled on");
-        deleteButtonClick = true;
         deleteButton.classList.add("button-active");
         deleteTrue = true;
     }
-    console.log("Delete button clicked");
 });
 
 updateButton.addEventListener("click", function(){
-    // if(updateButtonClick){
-    //     console.log("update button toggled off");
-    //     updateButtonClick = false;
-    //     updateButton.classList.remove("button-active");
-    // } else {
-    //     console.log("update button toggled on");
-    //     updateButtonClick = true;
-    //     updateButton.classList.add("button-active");
-    // }
-    // console.log("Update button clicked");
-    renderData();
+    if(updateTrue){
+        updaterue = false;
+        updateButton.classList.remove("button-active");
+    } else {
+        updateButton.classList.add("button-active");
+        updateTrue = true;
+    }
 });
 
 newEntryButton.addEventListener("click", function(){
-
     $('#createModal').modal("toggle");
-
-});
-
-submitButton.addEventListener("click", function(){
-
-    if(submitButtonClick){
-        console.log("delete button toggled off");
-        submitButtonClick = false;
-        submitButton.classList.remove("button-active");
-    } else {
-        console.log("delete button toggled on");
-        submitButtonClick = true;
-        submitButton.classList.add("button-active");
-    }
-
 });
 
 renderData();
@@ -124,6 +137,9 @@ function renderData() {
                 newRecord.setAttribute("id","record-" + log.id);
                 newRecord.addEventListener("click", function() {
                     deleteLog(log.id);
+                });
+                newRecord.addEventListener("click", function() {
+                    updateLog(log.id);
                 });
                 
             
