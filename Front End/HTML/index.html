@@ -1,79 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> 
-    <link href="/Front End/CSS/index.css" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link href="/Front End/CSS/index.css" rel="stylesheet">
+  <title>Document</title>
 </head>
+
 <body>
 
-    <div class="container-fluid m-4">
-        <div class="row">
-          <div class="col-10 main_content">
-            <h1 class ='uppertitle'>PARABLE STATION SHIP MANIFEST DOCK 42-C </h1>
-            <hr>
-            <div id ='header' class="row m-0">
-              <div class="col-1 header-left"> <h1 class="header-text text-center">id</h1> </div>
-              <div class="col-3 header"> <h1 class="header-text text-center">ship name</h1> </div>
-              <div class="col-2 header"> <h1 class="header-text text-center">captain</h1> </div>
-              <div class="col-2 header"> <h1 class="header-text text-center">class</h1> </div>
-              <div class="col-2 header"> <h1 class="header-text text-center">origin</h1> </div>
-              <div class="col-2 header-right"> <h1 class="header-text text-center">cargo</h1> </div>
-            </div>
-            <div class="" id='logContent'>
-            </div>
+  <div class="container-fluid m-4">
+    <div class="row">
+      <div class="col-10 main_content">
+        <h1 class='uppertitle'>PARABLE STATION SHIP MANIFEST DOCK 42-C </h1>
+        <hr>
+        <div class="row m-0">
+          <div class="col-1 header-left">
+            <h1 class="header-text text-center">id</h1>
           </div>
-
-          <div class="col settings_content text-center">
-              <img src="/Front End/Resources/Images/1x/Parable Station Lines.png">
-              <div class="text-center">
-                <button type="button"  id ='updateButton' class="settings_button mt-5">Update</button>
-              </div>
-              <div class="text-center">
-                <button type="button" id ='newEntryButton' class="settings_button mt-5" data-toggle="modal" data-target="#myModal">New Entry</button>
-              </div>
-              <div class="text-center">
-                <button type="button" id='deleteButton' class="settings_button mt-5">Delete</button>
-              </div>
-              <div class="text-center">
-                <button type="button" id='submitButton' class="settings_button mt-5">submit</button>
-              </div>
+          <div class="col-3 header">
+            <h1 class="header-text text-center">ship name</h1>
+          </div>
+          <div class="col-2 header">
+            <h1 class="header-text text-center">captain</h1>
+          </div>
+          <div class="col-2 header">
+            <h1 class="header-text text-center">class</h1>
+          </div>
+          <div class="col-2 header">
+            <h1 class="header-text text-center">origin</h1>
+          </div>
+          <div class="col-2 header-right">
+            <h1 class="header-text text-center">cargo</h1>
           </div>
         </div>
-    </div>
-
-    <div id ="readDiv">
-      <p>Test</p>
-    </div>
-
-      <!-- Modal -->
-    <div id="myModal" class="modal" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Input Fields</h4>
-          </div>
-          <div class="modal-body">
-            <p>Some text in the modal.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+        <div id='logContent'>
         </div>
+      </div>
 
+      <div class="col settings_content text-center">
+        <img src="/Front End/Resources/Images/1x/Parable Station Lines.png">
+        <div class="text-center">
+          <button type="button" id='updateButton' class="settings_button mt-5">Update</button>
+        </div>
+        <div class="text-center">
+          <button type="button" id='newEntryButton' class="settings_button mt-5" data-toggle="modal"
+            data-target="#myModal">New Entry</button>
+        </div>
+        <div class="text-center">
+          <button type="button" id='deleteButton' class="settings_button mt-5">Delete</button>
+        </div>
+        <div class="text-center">
+          <button type="button" id='submitButton' class="settings_button mt-5">submit</button>
+        </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="/Front End/JS/index.js"></script>
+  <!-- Modal -->
+  <div id="createModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
 
-  </body>
+      <!-- Modal content-->
+      <div class="modal-content modalFormat">
+        <div class="modal-header modalInner">
+          <h1 class="modal-title">Create new entry</h1>
+        </div>
+        <div class="modal-body modalInner">
+          <h2 class="pb-3">enter text in fields below</h2>
+          <form id='createForm'>
+            <div class="form-group">
+              <input name="shipName" type="text" id="createShip" placeholder="ship name">
+            </div>
+            <div class="form-group">
+              <input name="captainName" type="text" id="createCaptain" placeholder="captain name">
+            </div>
+            <div class="form-group">
+              <input name="shipClass" type="text" class="" id="createClass" placeholder="ship class">
+            </div>
+            <div class="form-group">
+              <input name="origin" type="text" class="" id="createOrigin" placeholder="origin">
+            </div>
+            <div class="form-group">
+              <input name="cargo" type="text" class="" id="createCargo" placeholder="cargo weight">
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="modal_button" form="createForm">Submit</button>
+              <button type="button" class="modal_button" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content modalFormat">
+        <div class="modal-body text-center">
+          <h1>Do you have permission to delete this?</h1>
+          <button type="button" class="modal_button" data-dismiss="modal">Close</button>
+          <button type="button" class="modal_button" data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="/Front End/JS/index.js"></script>
+
+</body>
+
 </html>

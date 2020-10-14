@@ -9,26 +9,53 @@ const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
 const newEntryButton = document.querySelector('#newEntryButton');
 const submitButton = document.querySelector('#submitButton');
-
 const shipNameInput = document.querySelector('.ship-name');
-
 const output = document.querySelector('#logContent');
+const createForm = document.querySelector('#createForm');
 
-function addRecord(){
-
-}
-
-function locateDelete(element){
-    console.log("delete True " + deleteTrue);
-    if (deleteTrue == true){
-        console.log("delete id no. " + element);
-        element.parentNode.removeChild(element);
-    } else {
-        
+createForm.addEventListener('submit', function(event) {
+    debugger;
+    event.preventDefault();
+    console.log("Submit pressed");
+    const data = {
+        shipName: this.shipName.value,
+        captainName: this.captainName.value,
+        shipClass: this.shipClass.value,
+        origin: this.origin.value,
+        cargo: this.cargo.value,
     }
-}
+    console.log(data);
+
+    fetch("http://localhost:8082/create",{
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type' : "application/json"
+        }
+        
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        renderData();
+        this.reset();
+        console.log(data);
+    }).catch(error => console.log(error));
+});
 
 function deleteLog(id){
+    console.log("Delete true " + deleteTrue);
+    if(deleteTrue == false){
+        console.log("Not deleted");
+    } else if (deleteTrue == true){
+        $('#deleteModal').modal("toggle");
+        console.log("delete id no. " + id);
+        fetch("http://localhost:8082/remove/" + id, {
+            method: "DELETE"
+        }).then(response => {
+            console.log(response);
+            renderData();
+        }).catch(error => console.error(error));
+    }
     
 }
 
@@ -63,17 +90,7 @@ updateButton.addEventListener("click", function(){
 
 newEntryButton.addEventListener("click", function(){
 
-    if(newEntryButtonClick){
- 
-   } else {
-        console.log("delete button toggled on");
-        newEntryButtonClick = true;
-        newEntryButton.classList.add("button-active");
-        setTimeout(function(){ 
-            console.log("new entry button toggled");
-            //newEntryButton.classList.remove("button-active");
-            addRecord();}, 500);
-    }
+    $('#createModal').modal("toggle");
 
 });
 
