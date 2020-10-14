@@ -91,6 +91,7 @@ function deleteLog(id){
 
 function updateLog(id){
     if(updateTrue == false){
+
     } else if (updateTrue == true){
         updateId = id;
         $('#updateModal').modal("toggle");
@@ -109,7 +110,7 @@ deleteButton.addEventListener("click", function(){
 
 updateButton.addEventListener("click", function(){
     if(updateTrue){
-        updaterue = false;
+        updateTrue = false;
         updateButton.classList.remove("button-active");
     } else {
         updateButton.classList.add("button-active");
