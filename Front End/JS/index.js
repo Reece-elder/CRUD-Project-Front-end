@@ -29,6 +29,18 @@ function locateDelete(element){
 }
 
 function deleteLog(id){
+    console.log("Delete true " + deleteTrue);
+    if(deleteTrue == false){
+        console.log("Not deleted");
+    } else if (deleteTrue == true){
+        console.log("delete id no. " + id);
+        fetch("http://localhost:8082/remove/" + id, {
+            method: "DELETE"
+        }).then(response => {
+            console.log(response);
+            renderData();
+        }).catch(error => console.error(error));
+    }
     
 }
 
