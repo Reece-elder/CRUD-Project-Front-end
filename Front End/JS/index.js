@@ -111,9 +111,9 @@ function updateLog(id){
 
 shipNameHeader.addEventListener('click', function(){
     console.log(shipNameButton);
-    deselectFilters();
     output.innerHTML = "";
     if(shipNameButton == "off" ) {
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/shipAsc")
         .then(response => response.json())
         .then(logArray => {
@@ -122,6 +122,7 @@ shipNameHeader.addEventListener('click', function(){
         shipNameHeader.innerHTML = "ship name &#x25B2;";
         shipNameButton = "asc";
     } else if (shipNameButton == "asc"){
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/shipDesc")
         .then(response => response.json())
         .then(logArray => {
@@ -137,9 +138,9 @@ shipNameHeader.addEventListener('click', function(){
 });
 
 captainHeader.addEventListener('click', function(){
-    deselectFilters();
     output.innerHTML = "";
     if(captainButton == "off" ) {
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/captainAsc")
         .then(response => response.json())
         .then(logArray => {
@@ -148,6 +149,7 @@ captainHeader.addEventListener('click', function(){
         captainHeader.innerHTML = "captain &#x25B2;";
         captainButton = "asc";
     } else if (captainButton == "asc"){
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/captainDesc")
         .then(response => response.json())
         .then(logArray => {
@@ -163,9 +165,9 @@ captainHeader.addEventListener('click', function(){
 });
 
 classHeader.addEventListener('click', function(){
-    deselectFilters();
     output.innerHTML = "";
     if(classButton == "off" ) {
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/classAsc")
         .then(response => response.json())
         .then(logArray => {
@@ -174,6 +176,7 @@ classHeader.addEventListener('click', function(){
         classHeader.innerHTML = "class &#x25B2;";
         classButton = "asc";
     } else if (classButton == "asc"){
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/classDesc")
         .then(response => response.json())
         .then(logArray => {
@@ -189,9 +192,9 @@ classHeader.addEventListener('click', function(){
 });
 
 originHeader.addEventListener('click', function(){
-    deselectFilters();
     output.innerHTML = "";
     if(originButton == "off" ) {
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/originAsc")
         .then(response => response.json())
         .then(logArray => {
@@ -200,6 +203,7 @@ originHeader.addEventListener('click', function(){
         originHeader.innerHTML = "origin &#x25B2;";
         originButton = "asc";
     } else if (originButton == "asc"){
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/originDesc")
         .then(response => response.json())
         .then(logArray => {
@@ -218,6 +222,7 @@ cargoHeader.addEventListener('click', function(){
     deselectFilters();
     output.innerHTML = "";
     if(cargoButton == "off" ) {
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/cargoAsc")
         .then(response => response.json())
         .then(logArray => {
@@ -226,6 +231,7 @@ cargoHeader.addEventListener('click', function(){
         cargoHeader.innerHTML = "cargo value &#x25B2;";
         cargoButton = "asc";
     } else if (cargoButton == "asc"){
+        deselectFilters();
         fetch("http://localhost:8082/getAll/sort/cargoDesc")
         .then(response => response.json())
         .then(logArray => {
@@ -241,6 +247,11 @@ cargoHeader.addEventListener('click', function(){
 });
 
 function deselectFilters (){
+    shipNameButton = "off";
+    captainButton = "off";
+    classButton = "off";
+    originButtonButton = "off";
+    cargoButtonButton = "off";
     classHeader.innerHTML = "class";
     captainHeader.innerHTML = "captain";
     originHeader.innerHTML = "origin";
@@ -255,6 +266,8 @@ deleteButton.addEventListener("click", function(){
     } else {
         deleteButton.classList.add("button-active");
         deleteTrue = true;
+        updateButton.classList.remove("button-active");
+        updateTrue = false;
     }
 });
 
@@ -265,6 +278,8 @@ updateButton.addEventListener("click", function(){
     } else {
         updateButton.classList.add("button-active");
         updateTrue = true;
+        deleteButton.classList.remove("button-active");
+        deleteTrue = false;
     }
 });
 
