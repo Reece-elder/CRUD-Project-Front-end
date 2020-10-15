@@ -47,7 +47,7 @@ createForm.addEventListener('submit', function(event) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        renderData();
+        getDefaultData();
         this.reset();
         console.log(data);
     }).catch(error => console.log(error));
@@ -95,7 +95,7 @@ function deleteLog(id){
             method: "DELETE"
         }).then(response => {
             console.log(response);
-            renderData();
+            getDefaultData();
         }).catch(error => console.error(error));
     }
 }
@@ -110,6 +110,7 @@ function updateLog(id){
 }
 
 shipNameHeader.addEventListener('click', function(){
+    deselectFilters();
     output.innerHTML = "";
     if(shipNameButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/shipAsc")
@@ -185,6 +186,73 @@ classHeader.addEventListener('click', function(){
     } 
 });
 
+originHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(originButton == "off" ) {
+        fetch("http://localhost:8082/getAll/sort/originAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        originHeader.innerHTML = "origin &#x25B2;";
+        originButton = "asc";
+    } else if (originButton == "asc"){
+        fetch("http://localhost:8082/getAll/sort/originDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        originHeader.innerHTML = "origin &#9660;";
+        originButton = "desc";
+    } else if (originButton == "desc"){
+        getDefaultData();
+        originHeader.innerHTML = "origin";
+        originButton = "off";
+    } 
+});
+
+cargoHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(cargoButton == "off" ) {
+        fetch("http://localhost:8082/getAll/sort/cargoAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        cargoHeader.innerHTML = "cargo value &#x25B2;";
+        cargoButton = "asc";
+    } else if (cargoButton == "asc"){
+        fetch("http://localhost:8082/getAll/sort/cargoDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        cargoHeader.innerHTML = "cargo value &#9660;";
+        cargoButton = "desc";
+    } else if (cargoButton == "desc"){
+        getDefaultData();
+        cargoHeader.innerHTML = "cargo Value";
+        cargoButton = "off";
+    } 
+});
+
+function deselectFilters (){
+    //shipNameButton = "desc";
+    shipNameHeader.innerHTML = "ship name";
+
+    classButtonButton = "desc";
+    classHeader.innerHTML = "class";
+
+    captainHeaderButton = "desc";
+    captainHeader.innerHTML = "captain";
+
+    originButtonButton = "desc";
+    originHeader.innerHTML = "origin";
+
+    cargoButtonButton = "desc";
+    cargoHeader.innerHTML = "cargo Value";
+}
+
 deleteButton.addEventListener("click", function(){
     if(deleteTrue){
         deleteTrue = false;
@@ -223,27 +291,27 @@ function createData(log){
     
     let newIDNumber = document.createElement('div');
     newIDNumber.setAttribute("class", "col-1");
-    newIDNumber.innerHTML = '<h2 class="text-center">' + log.id + '</h2>';
+    newIDNumber.innerHTML = '<h3 class="text-center">' + log.id + '</h3>';
 
     let newShipName = document.createElement('div');
     newShipName.setAttribute("class", "col-3");
-    newShipName.innerHTML = '<h2 class="text-center">' + log.shipName + '</h2>';
+    newShipName.innerHTML = '<h3 class="text-center">' + log.shipName + '</h3>';
 
     let newCaptainName = document.createElement('div');
     newCaptainName.setAttribute("class", "col-2");
-    newCaptainName.innerHTML = '<h2 class="text-center">' + log.captainName + '</h2>';
+    newCaptainName.innerHTML = '<h3 class="text-center">' + log.captainName + '</h3>';
 
     let newClass = document.createElement('div');
     newClass.setAttribute("class", "col-2");
-    newClass.innerHTML = '<h2 class="text-center">' + log.shipClass + '</h2>';
+    newClass.innerHTML = '<h3 class="text-center">' + log.shipClass + '</h3>';
 
     let newOrigin = document.createElement('div');
     newOrigin.setAttribute("class", "col-2");
-    newOrigin.innerHTML = '<h2 class="text-center">' + log.origin + '</h2>';
+    newOrigin.innerHTML = '<h3 class="text-center">' + log.origin + '</h3>';
 
     let newCargo = document.createElement('div');
     newCargo.setAttribute("class", "col-2");
-    newCargo.innerHTML = '<h2 class="text-center">¥ ' + log.cargo + '</h2>';
+    newCargo.innerHTML = '<h3 class="text-center">¥ ' + log.cargo + '</h3>';
     //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
 
     output.appendChild(newRecord);
