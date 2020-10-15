@@ -5,6 +5,8 @@ var updateButtonClick = false;
 var newEntryButtonClick = false;
 var updateId = 0;
 
+let shipNameButton = "off";
+
 
 const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
@@ -13,6 +15,9 @@ const shipNameInput = document.querySelector('.ship-name');
 const output = document.querySelector('#logContent');
 const createForm = document.querySelector('#createForm');
 const updateForm = document.querySelector('#updateForm');
+const shipNameHeader = document.querySelector('#shipNameHeader');
+
+
 
 createForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -98,6 +103,34 @@ function updateLog(id){
     }
 }
 
+shipNameHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+
+    if(shipNameButton == "off" ) {
+        fetch("http://localhost:8082/getAll/sort/shipAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        console.log(shipNameHeader.innerHTML);
+        shipNameHeader.innerHTML = "ship name &#x25B2;";
+        shipNameButton = "asc";
+    } else if (shipNameButton == "asc"){
+        fetch("http://localhost:8082/getAll/sort/shipDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        shipNameHeader.innerHTML = "ship name &#9660;";
+        shipNameButton = "desc";
+    } else if (shipNameButton == "desc"){
+        getDefaultData();
+        shipNameHeader.innerHTML = "ship name";
+        shipNameButton = "off";
+    } 
+
+});
+
 deleteButton.addEventListener("click", function(){
     if(deleteTrue){
         deleteTrue = false;
@@ -122,61 +155,61 @@ newEntryButton.addEventListener("click", function(){
     $('#createModal').modal("toggle");
 });
 
-renderData();
+function createData(log){
 
-function renderData() {
+    let newRecord = document.createElement('div');
+    newRecord.setAttribute("class", "row m-0 ship-log");
+    newRecord.setAttribute("id","record-" + log.id);
+    newRecord.addEventListener("click", function() {
+        deleteLog(log.id);
+    });
+    newRecord.addEventListener("click", function() {
+        updateLog(log.id);
+    });
+    
+    let newIDNumber = document.createElement('div');
+    newIDNumber.setAttribute("class", "col-1");
+    newIDNumber.innerHTML = '<h2 class="text-center">' + log.id + '</h2>';
 
+    let newShipName = document.createElement('div');
+    newShipName.setAttribute("class", "col-3");
+    newShipName.innerHTML = '<h2 class="text-center">' + log.shipName + '</h2>';
+
+    let newCaptainName = document.createElement('div');
+    newCaptainName.setAttribute("class", "col-2");
+    newCaptainName.innerHTML = '<h2 class="text-center">' + log.captainName + '</h2>';
+
+    let newClass = document.createElement('div');
+    newClass.setAttribute("class", "col-2");
+    newClass.innerHTML = '<h2 class="text-center">' + log.shipClass + '</h2>';
+
+    let newOrigin = document.createElement('div');
+    newOrigin.setAttribute("class", "col-2");
+    newOrigin.innerHTML = '<h2 class="text-center">' + log.origin + '</h2>';
+
+    let newCargo = document.createElement('div');
+    newCargo.setAttribute("class", "col-2");
+    newCargo.innerHTML = '<h2 class="text-center">' + log.cargo + '</h2>';
+    //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
+
+    output.appendChild(newRecord);
+
+    newRecord.appendChild(newIDNumber);
+    newRecord.appendChild(newShipName);
+    newRecord.appendChild(newCaptainName);
+    newRecord.appendChild(newClass);
+    newRecord.appendChild(newOrigin);
+    newRecord.appendChild(newCargo);
+
+}
+
+function getDefaultData() {
     output.innerHTML = "";
-
     fetch("http://localhost:8082/getAll")
         .then(response => response.json())
         .then(logArray => {
-            logArray.forEach(function(log) {
-
-                let newRecord = document.createElement('div');
-                newRecord.setAttribute("class", "row m-0 ship-log");
-                newRecord.setAttribute("id","record-" + log.id);
-                newRecord.addEventListener("click", function() {
-                    deleteLog(log.id);
-                });
-                newRecord.addEventListener("click", function() {
-                    updateLog(log.id);
-                });
-                
-            
-                let newIDNumber = document.createElement('div');
-                newIDNumber.setAttribute("class", "col-1");
-                newIDNumber.innerHTML = '<h2 class="text-center">' + log.id + '</h2>';
-            
-                let newShipName = document.createElement('div');
-                newShipName.setAttribute("class", "col-3");
-                newShipName.innerHTML = '<h2 class="text-center">' + log.shipName + '</h2>';
-            
-                let newCaptainName = document.createElement('div');
-                newCaptainName.setAttribute("class", "col-2");
-                newCaptainName.innerHTML = '<h2 class="text-center">' + log.captainName + '</h2>';
-            
-                let newClass = document.createElement('div');
-                newClass.setAttribute("class", "col-2");
-                newClass.innerHTML = '<h2 class="text-center">' + log.shipClass + '</h2>';
-            
-                let newOrigin = document.createElement('div');
-                newOrigin.setAttribute("class", "col-2");
-                newOrigin.innerHTML = '<h2 class="text-center">' + log.origin + '</h2>';
-            
-                let newCargo = document.createElement('div');
-                newCargo.setAttribute("class", "col-2");
-                newCargo.innerHTML = '<h2 class="text-center">' + log.cargo + '</h2>';
-                //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
-
-                output.appendChild(newRecord);
-            
-                newRecord.appendChild(newIDNumber);
-                newRecord.appendChild(newShipName);
-                newRecord.appendChild(newCaptainName);
-                newRecord.appendChild(newClass);
-                newRecord.appendChild(newOrigin);
-                newRecord.appendChild(newCargo);
-            });
+            logArray.forEach(createData);
         }).catch(error => console.error(error));
 }
+
+getDefaultData();
