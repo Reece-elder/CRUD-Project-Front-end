@@ -1,148 +1,347 @@
 let idNumber = 1;
 let deleteTrue = false;
-var deleteButtonClick = false;
+let updateTrue = false;
 var updateButtonClick = false;
 var newEntryButtonClick = false;
-var submitButtonClick = true;
+var updateId = 0;
+
+let shipNameButton = "off";
+let captainButton = "off";
+let classButton = "off";
+let originButton = "off";
+let cargoButton = "off";
+
 
 const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
 const newEntryButton = document.querySelector('#newEntryButton');
-const submitButton = document.querySelector('#submitButton');
-
 const shipNameInput = document.querySelector('.ship-name');
-
 const output = document.querySelector('#logContent');
+const createForm = document.querySelector('#createForm');
+const updateForm = document.querySelector('#updateForm');
+const shipNameHeader = document.querySelector('#shipNameHeader');
+const captainHeader = document.querySelector('#captainHeader');
+const classHeader = document.querySelector('#classHeader');
+const originHeader = document.querySelector('#originHeader');
+const cargoHeader = document.querySelector('#cargoHeader');
 
-function addRecord(){
+createForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log("Submit pressed");
+    const data = {
+        shipName: this.shipName.value,
+        captainName: this.captainName.value,
+        shipClass: this.shipClass.value,
+        origin: this.origin.value,
+        cargo: this.cargo.value,
+    }
+    console.log(data);
 
-}
-
-function locateDelete(element){
-    console.log("delete True " + deleteTrue);
-    if (deleteTrue == true){
-        console.log("delete id no. " + element);
-        element.parentNode.removeChild(element);
-    } else {
+    fetch("http://localhost:8082/create",{
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type' : "application/json"
+        }
         
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        getDefaultData();
+        this.reset();
+        console.log(data);
+    }).catch(error => console.log(error));
+});
+
+updateForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log(this.id.value);
+    let id = updateId;
+    const data = {
+        id: this.id.value,
+        shipName: this.shipName.value,
+        captainName: this.captainName.value,
+        shipClass: this.shipClass.value,
+        origin: this.origin.value,
+        cargo: this.cargo.value,
+    }
+    console.log(data);
+
+    fetch("http://localhost:8082/update?id=" + id,{
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type' : "application/json"
+        }
+        
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        getDefaultData();
+        this.reset();
+        console.log(data);
+    }).catch(error => console.log(error));
+});
+
+
+
+function deleteLog(id){
+    if(deleteTrue == false){
+        console.log("Not deleted");
+    } else if (deleteTrue == true){
+        $('#deleteModal').modal("toggle");
+        console.log("delete id no. " + id);
+        fetch("http://localhost:8082/remove/" + id, {
+            method: "DELETE"
+        }).then(response => {
+            console.log(response);
+            getDefaultData();
+        }).catch(error => console.error(error));
     }
 }
 
-function deleteLog(id){
-    
+function updateLog(id){
+    if(updateTrue == false){
+
+    } else if (updateTrue == true){
+        updateId = id;
+        $('#updateModal').modal("toggle");
+    }
+}
+
+shipNameHeader.addEventListener('click', function(){
+    console.log(shipNameButton);
+    output.innerHTML = "";
+    if(shipNameButton == "off" ) {
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/shipAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        shipNameHeader.innerHTML = "ship name &#x25B2;";
+        shipNameButton = "asc";
+    } else if (shipNameButton == "asc"){
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/shipDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        shipNameHeader.innerHTML = "ship name &#9660;";
+        shipNameButton = "desc";
+    } else if (shipNameButton == "desc"){
+        getDefaultData();
+        shipNameHeader.innerHTML = "ship name";
+        shipNameButton = "off";
+    } 
+});
+
+captainHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(captainButton == "off" ) {
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/captainAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        captainHeader.innerHTML = "captain &#x25B2;";
+        captainButton = "asc";
+    } else if (captainButton == "asc"){
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/captainDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        captainHeader.innerHTML = "captain &#9660;";
+        captainButton = "desc";
+    } else if (captainButton == "desc"){
+        getDefaultData();
+        captainHeader.innerHTML = "captain";
+        captainButton = "off";
+    } 
+});
+
+classHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(classButton == "off" ) {
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/classAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        classHeader.innerHTML = "class &#x25B2;";
+        classButton = "asc";
+    } else if (classButton == "asc"){
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/classDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        classHeader.innerHTML = "class &#9660;";
+        classButton = "desc";
+    } else if (classButton == "desc"){
+        getDefaultData();
+        classHeader.innerHTML = "class";
+        classButton = "off";
+    } 
+});
+
+originHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(originButton == "off" ) {
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/originAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        originHeader.innerHTML = "origin &#x25B2;";
+        originButton = "asc";
+    } else if (originButton == "asc"){
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/originDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        originHeader.innerHTML = "origin &#9660;";
+        originButton = "desc";
+    } else if (originButton == "desc"){
+        getDefaultData();
+        originHeader.innerHTML = "origin";
+        originButton = "off";
+    } 
+});
+
+cargoHeader.addEventListener('click', function(){
+    deselectFilters();
+    output.innerHTML = "";
+    if(cargoButton == "off" ) {
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/cargoAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        cargoHeader.innerHTML = "cargo value &#x25B2;";
+        cargoButton = "asc";
+    } else if (cargoButton == "asc"){
+        deselectFilters();
+        fetch("http://localhost:8082/getAll/sort/cargoDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        cargoHeader.innerHTML = "cargo value &#9660;";
+        cargoButton = "desc";
+    } else if (cargoButton == "desc"){
+        getDefaultData();
+        cargoHeader.innerHTML = "cargo Value";
+        cargoButton = "off";
+    } 
+});
+
+function deselectFilters (){
+    shipNameButton = "off";
+    captainButton = "off";
+    classButton = "off";
+    originButtonButton = "off";
+    cargoButtonButton = "off";
+    classHeader.innerHTML = "class";
+    captainHeader.innerHTML = "captain";
+    originHeader.innerHTML = "origin";
+    cargoHeader.innerHTML = "cargo Value";
+    shipNameHeader.innerHTML = "ship name";
 }
 
 deleteButton.addEventListener("click", function(){
-    if(deleteButtonClick){
+    if(deleteTrue){
         deleteTrue = false;
-        console.log("delete button toggled off");
-        deleteButtonClick = false;
         deleteButton.classList.remove("button-active");
     } else {
-        console.log("delete button toggled on");
-        deleteButtonClick = true;
         deleteButton.classList.add("button-active");
         deleteTrue = true;
+        updateButton.classList.remove("button-active");
+        updateTrue = false;
     }
-    console.log("Delete button clicked");
 });
 
 updateButton.addEventListener("click", function(){
-    // if(updateButtonClick){
-    //     console.log("update button toggled off");
-    //     updateButtonClick = false;
-    //     updateButton.classList.remove("button-active");
-    // } else {
-    //     console.log("update button toggled on");
-    //     updateButtonClick = true;
-    //     updateButton.classList.add("button-active");
-    // }
-    // console.log("Update button clicked");
-    renderData();
+    if(updateTrue){
+        updateTrue = false;
+        updateButton.classList.remove("button-active");
+    } else {
+        updateButton.classList.add("button-active");
+        updateTrue = true;
+        deleteButton.classList.remove("button-active");
+        deleteTrue = false;
+    }
 });
 
 newEntryButton.addEventListener("click", function(){
-
-    if(newEntryButtonClick){
- 
-   } else {
-        console.log("delete button toggled on");
-        newEntryButtonClick = true;
-        newEntryButton.classList.add("button-active");
-        setTimeout(function(){ 
-            console.log("new entry button toggled");
-            //newEntryButton.classList.remove("button-active");
-            addRecord();}, 500);
-    }
-
+    $('#createModal').modal("toggle");
 });
 
-submitButton.addEventListener("click", function(){
+function createData(log){
 
-    if(submitButtonClick){
-        console.log("delete button toggled off");
-        submitButtonClick = false;
-        submitButton.classList.remove("button-active");
-    } else {
-        console.log("delete button toggled on");
-        submitButtonClick = true;
-        submitButton.classList.add("button-active");
-    }
+    let newRecord = document.createElement('div');
+    newRecord.setAttribute("class", "row m-0 ship-log");
+    newRecord.setAttribute("id","record-" + log.id);
+    newRecord.addEventListener("click", function() {
+        deleteLog(log.id);
+    });
+    newRecord.addEventListener("click", function() {
+        updateLog(log.id);
+    });
+    
+    let newIDNumber = document.createElement('div');
+    newIDNumber.setAttribute("class", "col-1");
+    newIDNumber.innerHTML = '<h3 class="text-center">' + log.id + '</h3>';
 
-});
+    let newShipName = document.createElement('div');
+    newShipName.setAttribute("class", "col-3");
+    newShipName.innerHTML = '<h3 class="text-center">' + log.shipName + '</h3>';
 
-renderData();
+    let newCaptainName = document.createElement('div');
+    newCaptainName.setAttribute("class", "col-2");
+    newCaptainName.innerHTML = '<h3 class="text-center">' + log.captainName + '</h3>';
 
-function renderData() {
+    let newClass = document.createElement('div');
+    newClass.setAttribute("class", "col-2");
+    newClass.innerHTML = '<h3 class="text-center">' + log.shipClass + '</h3>';
 
+    let newOrigin = document.createElement('div');
+    newOrigin.setAttribute("class", "col-2");
+    newOrigin.innerHTML = '<h3 class="text-center">' + log.origin + '</h3>';
+
+    let newCargo = document.createElement('div');
+    newCargo.setAttribute("class", "col-2");
+    newCargo.innerHTML = '<h3 class="text-center">¥ ' + log.cargo + '</h3>';
+    //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
+
+    output.appendChild(newRecord);
+
+    newRecord.appendChild(newIDNumber);
+    newRecord.appendChild(newShipName);
+    newRecord.appendChild(newCaptainName);
+    newRecord.appendChild(newClass);
+    newRecord.appendChild(newOrigin);
+    newRecord.appendChild(newCargo);
+
+}
+
+function getDefaultData() {
     output.innerHTML = "";
-
     fetch("http://localhost:8082/getAll")
         .then(response => response.json())
         .then(logArray => {
-            logArray.forEach(function(log) {
-
-                let newRecord = document.createElement('div');
-                newRecord.setAttribute("class", "row m-0 ship-log");
-                newRecord.setAttribute("id","record-" + log.id);
-                newRecord.addEventListener("click", function() {
-                    deleteLog(log.id);
-                });
-                
-            
-                let newIDNumber = document.createElement('div');
-                newIDNumber.setAttribute("class", "col-1");
-                newIDNumber.innerHTML = '<h2 class="text-center">' + log.id + '</h2>';
-            
-                let newShipName = document.createElement('div');
-                newShipName.setAttribute("class", "col-3");
-                newShipName.innerHTML = '<h2 class="text-center">' + log.shipName + '</h2>';
-            
-                let newCaptainName = document.createElement('div');
-                newCaptainName.setAttribute("class", "col-2");
-                newCaptainName.innerHTML = '<h2 class="text-center">' + log.captainName + '</h2>';
-            
-                let newClass = document.createElement('div');
-                newClass.setAttribute("class", "col-2");
-                newClass.innerHTML = '<h2 class="text-center">' + log.shipClass + '</h2>';
-            
-                let newOrigin = document.createElement('div');
-                newOrigin.setAttribute("class", "col-2");
-                newOrigin.innerHTML = '<h2 class="text-center">' + log.origin + '</h2>';
-            
-                let newCargo = document.createElement('div');
-                newCargo.setAttribute("class", "col-2");
-                newCargo.innerHTML = '<h2 class="text-center">' + log.cargo + '</h2>';
-                //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
-
-                output.appendChild(newRecord);
-            
-                newRecord.appendChild(newIDNumber);
-                newRecord.appendChild(newShipName);
-                newRecord.appendChild(newCaptainName);
-                newRecord.appendChild(newClass);
-                newRecord.appendChild(newOrigin);
-                newRecord.appendChild(newCargo);
-            });
+            logArray.forEach(createData);
         }).catch(error => console.error(error));
 }
+
+getDefaultData();
