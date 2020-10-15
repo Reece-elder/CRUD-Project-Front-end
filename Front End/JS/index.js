@@ -6,6 +6,10 @@ var newEntryButtonClick = false;
 var updateId = 0;
 
 let shipNameButton = "off";
+let captainButton = "off";
+let classButton = "off";
+let originButton = "off";
+let cargoButton = "off";
 
 
 const deleteButton = document.querySelector('#deleteButton');
@@ -16,8 +20,10 @@ const output = document.querySelector('#logContent');
 const createForm = document.querySelector('#createForm');
 const updateForm = document.querySelector('#updateForm');
 const shipNameHeader = document.querySelector('#shipNameHeader');
-
-
+const captainHeader = document.querySelector('#captainHeader');
+const classHeader = document.querySelector('#classHeader');
+const originHeader = document.querySelector('#originHeader');
+const cargoHeader = document.querySelector('#cargoHeader');
 
 createForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -105,7 +111,6 @@ function updateLog(id){
 
 shipNameHeader.addEventListener('click', function(){
     output.innerHTML = "";
-
     if(shipNameButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/shipAsc")
         .then(response => response.json())
@@ -128,7 +133,56 @@ shipNameHeader.addEventListener('click', function(){
         shipNameHeader.innerHTML = "ship name";
         shipNameButton = "off";
     } 
+});
 
+captainHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(captainButton == "off" ) {
+        fetch("http://localhost:8082/getAll/sort/captainAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        captainHeader.innerHTML = "captain &#x25B2;";
+        captainButton = "asc";
+    } else if (captainButton == "asc"){
+        fetch("http://localhost:8082/getAll/sort/captainDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        captainHeader.innerHTML = "captain &#9660;";
+        captainButton = "desc";
+    } else if (captainButton == "desc"){
+        getDefaultData();
+        captainHeader.innerHTML = "captain";
+        captainButton = "off";
+    } 
+});
+
+classHeader.addEventListener('click', function(){
+    output.innerHTML = "";
+    if(classButton == "off" ) {
+        fetch("http://localhost:8082/getAll/sort/classAsc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        classHeader.innerHTML = "class &#x25B2;";
+        classButton = "asc";
+    } else if (classButton == "asc"){
+        fetch("http://localhost:8082/getAll/sort/classDesc")
+        .then(response => response.json())
+        .then(logArray => {
+            logArray.forEach(createData);
+        }).catch(error => console.error(error));
+        classHeader.innerHTML = "class &#9660;";
+        classButton = "desc";
+    } else if (classButton == "desc"){
+        getDefaultData();
+        classHeader.innerHTML = "class";
+        classButton = "off";
+    } 
 });
 
 deleteButton.addEventListener("click", function(){
@@ -189,7 +243,7 @@ function createData(log){
 
     let newCargo = document.createElement('div');
     newCargo.setAttribute("class", "col-2");
-    newCargo.innerHTML = '<h2 class="text-center">' + log.cargo + '</h2>';
+    newCargo.innerHTML = '<h2 class="text-center">¥ ' + log.cargo + '</h2>';
     //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
 
     output.appendChild(newRecord);
