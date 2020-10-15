@@ -77,7 +77,7 @@ updateForm.addEventListener('submit', function(event) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        renderData();
+        getDefaultData();
         this.reset();
         console.log(data);
     }).catch(error => console.log(error));
@@ -110,6 +110,7 @@ function updateLog(id){
 }
 
 shipNameHeader.addEventListener('click', function(){
+    console.log(shipNameButton);
     deselectFilters();
     output.innerHTML = "";
     if(shipNameButton == "off" ) {
@@ -118,7 +119,6 @@ shipNameHeader.addEventListener('click', function(){
         .then(logArray => {
             logArray.forEach(createData);
         }).catch(error => console.error(error));
-        console.log(shipNameHeader.innerHTML);
         shipNameHeader.innerHTML = "ship name &#x25B2;";
         shipNameButton = "asc";
     } else if (shipNameButton == "asc"){
@@ -137,6 +137,7 @@ shipNameHeader.addEventListener('click', function(){
 });
 
 captainHeader.addEventListener('click', function(){
+    deselectFilters();
     output.innerHTML = "";
     if(captainButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/captainAsc")
@@ -162,6 +163,7 @@ captainHeader.addEventListener('click', function(){
 });
 
 classHeader.addEventListener('click', function(){
+    deselectFilters();
     output.innerHTML = "";
     if(classButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/classAsc")
@@ -187,6 +189,7 @@ classHeader.addEventListener('click', function(){
 });
 
 originHeader.addEventListener('click', function(){
+    deselectFilters();
     output.innerHTML = "";
     if(originButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/originAsc")
@@ -212,6 +215,7 @@ originHeader.addEventListener('click', function(){
 });
 
 cargoHeader.addEventListener('click', function(){
+    deselectFilters();
     output.innerHTML = "";
     if(cargoButton == "off" ) {
         fetch("http://localhost:8082/getAll/sort/cargoAsc")
@@ -237,20 +241,11 @@ cargoHeader.addEventListener('click', function(){
 });
 
 function deselectFilters (){
-    //shipNameButton = "desc";
-    shipNameHeader.innerHTML = "ship name";
-
-    classButtonButton = "desc";
     classHeader.innerHTML = "class";
-
-    captainHeaderButton = "desc";
     captainHeader.innerHTML = "captain";
-
-    originButtonButton = "desc";
     originHeader.innerHTML = "origin";
-
-    cargoButtonButton = "desc";
     cargoHeader.innerHTML = "cargo Value";
+    shipNameHeader.innerHTML = "ship name";
 }
 
 deleteButton.addEventListener("click", function(){
