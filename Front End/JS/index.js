@@ -32,15 +32,13 @@ $(document).ready(function(){
 //Input form to create a new record
 createForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log("Submit pressed");
-    const data = {
+        const data = {
         shipName: this.shipName.value,
         captainName: this.captainName.value,
         shipClass: this.shipClass.value,
         origin: this.origin.value,
         cargo: this.cargo.value,
     }
-    console.log(data);
 
     fetch("http://localhost:8082/create",{
         method: "POST",
@@ -54,14 +52,12 @@ createForm.addEventListener('submit', function(event) {
     }).then(data => {
         getDefaultData();
         this.reset();
-        console.log(data);
     }).catch(error => console.log(error));
 });
 
 //Input form to update an existing record
 updateForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log(this.id.value);
     let id = updateId;
     const data = {
         id: this.id.value,
@@ -71,7 +67,6 @@ updateForm.addEventListener('submit', function(event) {
         origin: this.origin.value,
         cargo: this.cargo.value,
     }
-    console.log(data);
 
     fetch("http://localhost:8082/update?id=" + id,{
         method: "PUT",
@@ -85,7 +80,6 @@ updateForm.addEventListener('submit', function(event) {
     }).then(data => {
         getDefaultData();
         this.reset();
-        console.log(data);
     }).catch(error => console.log(error));
 });
 
@@ -95,11 +89,9 @@ function deleteLog(id){
     if(deleteTrue == false){
     } else if (deleteTrue == true){
         $('#deleteModal').modal("toggle");
-        console.log("delete id no. " + id);
         fetch("http://localhost:8082/remove/" + id, {
             method: "DELETE"
         }).then(response => {
-            console.log(response);
             getDefaultData();
         }).catch(error => console.error(error));
     }
@@ -120,7 +112,6 @@ function updateLog(id){
 //Adds unicode icon to indicate how its sorting
 //Uses Getall/byOrder and sorting stops other headers from sorting
 shipNameHeader.addEventListener('click', function(){
-    console.log(shipNameButton);
     output.innerHTML = "";
     if(shipNameButton == "off" ) {
         deselectFilters();
