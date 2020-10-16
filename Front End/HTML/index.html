@@ -45,11 +45,11 @@
       <div class="col settings_content text-center">
         <img src="/Front End/Resources/Images/1x/Parable Station Lines.png">
         <div class="text-center">
-          <button type="button" id='updateButton' class="settings_button mt-5">Update</button>
-        </div>
-        <div class="text-center">
           <button type="button" id='newEntryButton' class="settings_button mt-5" data-toggle="modal"
             data-target="#myModal">New Entry</button>
+        </div>
+        <div class="text-center">
+          <button type="button" id='updateButton' class="settings_button mt-5">Update</button>
         </div>
         <div class="text-center">
           <button type="button" id='deleteButton' class="settings_button mt-5">Delete</button>
@@ -132,9 +132,6 @@
       </div>
     </div>
 
-  
-
-  
   <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content modalFormat">
@@ -143,6 +140,56 @@
           <button type="button" class="modal_button" data-dismiss="modal">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  
+  <!-- Modal -->
+  <div class="modal show" id="pageOpenModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content modalFormat">
+        <div class="modal-header modalInner ">
+          <h1 class="modal-title">How to use Parable Stations Ship manifest log</h1>
+        </div>
+        <div class="modal-body container-fluid">
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="settings_button smallButton">New entry</button>
+            </div>
+            <div class="col-8">
+              <h3>Click this to enter a new record</h3>
+            </div>
+          </div>
+          <div> 
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="settings_button smallButton">update</button>
+            </div>
+            <div class="col-8">
+              <h3>Click this to update an existing record</h3>
+            </div>
+          </div>
+          <div> 
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="settings_button smallButton">delete</button>
+            </div>
+            <div class="col-8">
+              <h3>Click this to delete an existing record</h3>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer modalInner">
+          <button type="button" class="settings_button m-4 w-100" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+      
     </div>
   </div>
 

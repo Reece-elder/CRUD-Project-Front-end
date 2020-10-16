@@ -345,3 +345,7 @@ function getDefaultData() {
 }
 
 getDefaultData();
+
+$(document).ready(function(){
+    $("#pageOpenModal").modal('show');
+});
