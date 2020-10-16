@@ -1,4 +1,4 @@
-let idNumber = 1;
+// let idNumber = 1;
 let deleteTrue = false;
 let updateTrue = false;
 var updateButtonClick = false;
@@ -10,7 +10,6 @@ let captainButton = "off";
 let classButton = "off";
 let originButton = "off";
 let cargoButton = "off";
-
 
 const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
@@ -25,6 +24,12 @@ const classHeader = document.querySelector('#classHeader');
 const originHeader = document.querySelector('#originHeader');
 const cargoHeader = document.querySelector('#cargoHeader');
 
+//Opens the tutorial modal upon page load
+$(document).ready(function(){
+    $("#pageOpenModal").modal('show');
+});
+
+//Input form to create a new record
 createForm.addEventListener('submit', function(event) {
     event.preventDefault();
     console.log("Submit pressed");
@@ -53,6 +58,7 @@ createForm.addEventListener('submit', function(event) {
     }).catch(error => console.log(error));
 });
 
+//Input form to update an existing record
 updateForm.addEventListener('submit', function(event) {
     event.preventDefault();
     console.log(this.id.value);
@@ -83,11 +89,10 @@ updateForm.addEventListener('submit', function(event) {
     }).catch(error => console.log(error));
 });
 
-
-
+//Delete function appended to record upon creation
+//Waits until the global delete button is true to function
 function deleteLog(id){
     if(deleteTrue == false){
-        console.log("Not deleted");
     } else if (deleteTrue == true){
         $('#deleteModal').modal("toggle");
         console.log("delete id no. " + id);
@@ -100,6 +105,8 @@ function deleteLog(id){
     }
 }
 
+//Update function appended to record upon creation
+//Waits until the global update button is true to toggle updateModal
 function updateLog(id){
     if(updateTrue == false){
 
@@ -109,6 +116,9 @@ function updateLog(id){
     }
 }
 
+//Table headers that allow Asc/Desc/Normal ordering of data
+//Adds unicode icon to indicate how its sorting
+//Uses Getall/byOrder and sorting stops other headers from sorting
 shipNameHeader.addEventListener('click', function(){
     console.log(shipNameButton);
     output.innerHTML = "";
@@ -121,6 +131,7 @@ shipNameHeader.addEventListener('click', function(){
         }).catch(error => console.error(error));
         shipNameHeader.innerHTML = "ship name &#x25B2;";
         shipNameButton = "asc";
+
     } else if (shipNameButton == "asc"){
         deselectFilters();
         fetch("http://localhost:8082/getAll/sort/shipDesc")
@@ -130,6 +141,7 @@ shipNameHeader.addEventListener('click', function(){
         }).catch(error => console.error(error));
         shipNameHeader.innerHTML = "ship name &#9660;";
         shipNameButton = "desc";
+
     } else if (shipNameButton == "desc"){
         getDefaultData();
         shipNameHeader.innerHTML = "ship name";
@@ -246,6 +258,8 @@ cargoHeader.addEventListener('click', function(){
     } 
 });
 
+//Sets all table headers to 'off' and resets the unicode to blank
+//Functions when other headers are selected
 function deselectFilters (){
     shipNameButton = "off";
     captainButton = "off";
@@ -259,6 +273,7 @@ function deselectFilters (){
     shipNameHeader.innerHTML = "ship name";
 }
 
+//Global delete button, triggers when pressed setting a variable to true
 deleteButton.addEventListener("click", function(){
     if(deleteTrue){
         deleteTrue = false;
@@ -271,6 +286,7 @@ deleteButton.addEventListener("click", function(){
     }
 });
 
+//Global update button, triggers when pressed setting a variable to true
 updateButton.addEventListener("click", function(){
     if(updateTrue){
         updateTrue = false;
@@ -283,12 +299,21 @@ updateButton.addEventListener("click", function(){
     }
 });
 
+//Triggers upon create entry, toggles the createModal form
 newEntryButton.addEventListener("click", function(){
+    newEntryButton.classList.add("button-active");
     $('#createModal').modal("toggle");
 });
 
-function createData(log){
+//Triggers when createModal is closed, toggling the new entry button off
+$("#createModal").on("hidden.bs.modal", function () {
+    newEntryButton.classList.remove("button-active");
+});
 
+//Takes the data passed in as a JSON log
+//Creates a new row, assigns Event Listeners and sets the id to the record id
+//Creates the columns inside the row and appends the data
+function createData(log){
     let newRecord = document.createElement('div');
     newRecord.setAttribute("class", "row m-0 ship-log");
     newRecord.setAttribute("id","record-" + log.id);
@@ -322,7 +347,6 @@ function createData(log){
     let newCargo = document.createElement('div');
     newCargo.setAttribute("class", "col-2");
     newCargo.innerHTML = '<h3 class="text-center">¥ ' + log.cargo + '</h3>';
-    //<div class="input-group justify-content-center"> <input type="text" class="cargo-name"> </div>
 
     output.appendChild(newRecord);
 
@@ -335,6 +359,7 @@ function createData(log){
 
 }
 
+//gets the default data from the DB, creates an arraylist and passes it into createData
 function getDefaultData() {
     output.innerHTML = "";
     fetch("http://localhost:8082/getAll")
@@ -344,4 +369,6 @@ function getDefaultData() {
         }).catch(error => console.error(error));
 }
 
+//Runs the defaut data function to grab the existing data from database
 getDefaultData();
+
