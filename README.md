@@ -25,8 +25,8 @@ Below is a contents area for the various parts of this markdown file.
 ## Resources
 
 * Presentation 
-* Jira Board
-* Risk Assesment
+* Jira Board [here](https://qatraineerelder.atlassian.net/jira/software/projects/PSCR/boards/4).
+* Risk Assesment [here](https://docs.google.com/spreadsheets/d/1bFGP5dXZZ-XnUCaVH8s5lSRkrQeCfFvFlrfATnrzXjg/edit?usp=sharing)
 
 ## Brief
 
@@ -70,7 +70,7 @@ The Jira board has been designed so that elements move from left to right from p
 
 ## Risk Assesment
 
-The risk assesment for this project can be found [here] (https://docs.google.com/spreadsheets/d/1bFGP5dXZZ-XnUCaVH8s5lSRkrQeCfFvFlrfATnrzXjg/edit?usp=sharing). 
+The risk assesment for this project can be found [here](https://docs.google.com/spreadsheets/d/1bFGP5dXZZ-XnUCaVH8s5lSRkrQeCfFvFlrfATnrzXjg/edit?usp=sharing). 
 A screenshot of the risk assesment is below:
 
 ![Risk Assesment](https://i.imgur.com/aOrP9d4.png)
