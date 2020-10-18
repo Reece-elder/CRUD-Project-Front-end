@@ -1,0 +1,22 @@
+#myProgress {
+    width: 100%;
+    background-color: rgb(19, 17, 18);
+    border: medium solid #00FF41;
+  }
+  
+  #myBar {
+    width: 1%;
+    height: 50px;
+    background-color:#00FF41;
+  }
+
+  .bigImage {
+    width: 50%;
+    height: auto;
+  }
+
+  p {
+      color: rgb(19, 17, 18);
+      font-size: 250%;
+      text-align: center;
+  }
