@@ -96,15 +96,13 @@ hr{
     background-color: #00FF41;
 }
 
-.ship-log:active > .col-1 > h2 {
+.ship-log:active > .col-1 > h3 {
     color: rgb(19, 17, 18)
 }
-
-.ship-log:active > .col-2 > h2 {
+.ship-log:active > .col-2 > h3 {
     color: rgb(19, 17, 18)
 }
-
-.ship-log:active > .col-3 > h2 {
+.ship-log:active > .col-3 > h3 {
     color: rgb(19, 17, 18)
 }
 
@@ -124,4 +122,9 @@ input[type=text]:focus {
     background-color: #00FF41;
     color: rgb(19, 17, 18);
   }
+
+  .smallButton{
+    width: 100%;
+    font-size: 150%;
+}
 
