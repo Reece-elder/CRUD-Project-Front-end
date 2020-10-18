@@ -1,9 +1,7 @@
 // let idNumber = 1;
 let deleteTrue = false;
 let updateTrue = false;
-var updateButtonClick = false;
-var newEntryButtonClick = false;
-var updateId = 0;
+let updateId = 0;
 
 let shipNameButton = "off";
 let captainButton = "off";
@@ -14,6 +12,7 @@ let cargoButton = "off";
 const deleteButton = document.querySelector('#deleteButton');
 const updateButton = document.querySelector('#updateButton');
 const newEntryButton = document.querySelector('#newEntryButton');
+const exitButton = document.querySelector('#exitButton');
 const shipNameInput = document.querySelector('.ship-name');
 const output = document.querySelector('#logContent');
 const createForm = document.querySelector('#createForm');
@@ -295,6 +294,10 @@ newEntryButton.addEventListener("click", function(){
     newEntryButton.classList.add("button-active");
     $('#createModal').modal("toggle");
 });
+
+exitButton.addEventListener("click", function(){
+    window.location.replace("/Front End/HTML/loadingPage.html");
+})
 
 //Triggers when createModal is closed, toggling the new entry button off
 $("#createModal").on("hidden.bs.modal", function () {
