@@ -135,7 +135,8 @@ There are a number of improvemenets I would like to implement eventually:
 
 * Improve the functionality of the page by adding a second database, allowing the user to inspect specific details, such as a dock number log. 
 * Add search by / Filter by functionality to the app.
-* Implementation of a loading/landing page for the user. 
+* ~~Implementation of a loading/landing page for the user. 
+  Added a landing page with a loading bar 18/10/20
 * Functionality to restrict updating and deleting of certain fields without authorisation.
 
 ## Author
