@@ -24,9 +24,10 @@ Below is a contents area for the various parts of this markdown file.
 
 ## Resources
 
-* Presentation 
-* Jira Board [here](https://qatraineerelder.atlassian.net/jira/software/projects/PSCR/boards/4).
+* Presentation [here](https://docs.google.com/presentation/d/139HCllJ2zHiPPAEtSDXsN39Tq_1Fsb_fz8ALB8UiNEE/edit?usp=sharing)
+* Jira Board [here](https://qatraineerelder.atlassian.net/jira/software/projects/PSCR/boards/4)
 * Risk Assessment [here](https://docs.google.com/spreadsheets/d/1bFGP5dXZZ-XnUCaVH8s5lSRkrQeCfFvFlrfATnrzXjg/edit?usp=sharing)
+* Back-end Github Repo [here](https://github.com/Reece-elder/CRUD-Project-Backend)
 
 ## Brief
 
