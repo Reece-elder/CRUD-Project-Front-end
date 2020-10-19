@@ -1,7 +1,7 @@
 # CRUD-Project-Front-end
 
 This is the README for my first project at QA Academy as a graduate. 
-It is a CRUD (Create, Read, Update, Delete) Application that incorporates Full stack development, HTML/CSS web design and Database management through the use H₂.
+It is a CRUD (Create, Read, Update, Delete) Application that incorporates Full stack development, HTML/CSS web design and Database management through the use of H2 Console.
 
 This README will outline the project, in how it came to be, the research and development and any crucial development documentation to go with it. 
 
