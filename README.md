@@ -140,6 +140,8 @@ There are a number of improvements I would like to implement eventually:
  * Added a landing page with a loading bar 18/10/20
 * Functionality to restrict updating and deleting of certain fields without authorization.
 
-## Author
+## Author and Acknowledgements
 
-Reece Elder
+I'd like to ackonowledge the QA Trainers for helping me to complete this project as well as the QA Academy Cloud Native Cohort.
+
+Project by Reece Elder
