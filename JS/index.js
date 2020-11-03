@@ -9,7 +9,7 @@ function move() {
       if (width >= 100) {
         clearInterval(id);
         i = 0;
-        window.location.replace("/Front End/HTML/index.html");
+        window.location.replace("/HTML/main-page.html");
       } else {
         width++;
         elem.style.width = width + "%";
